@@ -356,6 +356,14 @@ void MacrophageGroup::intervene(const repast::Point<int> & pt)
 				continue;
 			}
 	  }
+	  if (state == MacrophageState::INFLAMMATORY)
+	  {
+		  if ( 0.8 > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
+			{
+				mpCompartment->removeAgent(pAgent);
+				continue;
+			}
+	  }
 	}
 
        //After deletion, you will add back again the monocytes
