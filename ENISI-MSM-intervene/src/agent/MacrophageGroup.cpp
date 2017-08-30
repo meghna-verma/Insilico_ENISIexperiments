@@ -367,7 +367,7 @@ void MacrophageGroup::intervene(const repast::Point<int> & pt)
 	}
 
        //After deletion, you will add back again the monocytes
-	  size_t LocalCount = 20;
+	  size_t LocalCount = 30;
 
         for (size_t i = 0; i < LocalCount; i++)
         {
