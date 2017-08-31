@@ -28,7 +28,7 @@ private:
   double p_epiIL10h;//Rule 12
   double p_epiinfbactdamage;
   double p_epicyto;
-  double p_randomdam;
+  double p_EpiCap; 
 };
 
 } // namespace ENISI
