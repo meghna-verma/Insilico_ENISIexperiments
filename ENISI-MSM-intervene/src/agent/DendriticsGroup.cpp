@@ -31,6 +31,7 @@ DendriticsGroup::DendriticsGroup(Compartment * pCompartment, const double & conc
   pModel->getValue("p_DCLPtoGLN", p_DCLPtoGLN);
   pModel->getValue("p_DCEpitoLP", p_DCEpitoLP);	  
   pModel->getValue("p_DCbasal", p_DCbasal);
+  pModel->getValue("p_iDCrep", p_iDCrep);	
 }
 
 void DendriticsGroup::act(const repast::Point<int> & pt)
