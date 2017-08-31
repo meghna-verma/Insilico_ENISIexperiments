@@ -35,6 +35,7 @@ private:
   double p_DCEpitoLP;
   double p_DCbasal;
   double p_DCLPtoGLN;
+  double p_iDCrep;
   
 };
 
