@@ -50,7 +50,7 @@ void EpithelialCellGroup::act(const repast::Point<int> & pt)
   	Concentration TcellsCellConcentration;
   	concentrations(Agent::Tcell, Tcells, TcellsCellConcentration);
 	Concentration EpiConcentration;
-  	concentrations(Agent::EpithelialCells, EpithelialCells, EpiConcentration);
+  	concentrations(Agent::EpithelialCell, EpithelialCells, EpiConcentration);
 	
 	double infectiousBacteriaConcentration = BacteriaConcentration[BacteriaState::INFECTIOUS];	
 	double th17Concentration = TcellsCellConcentration[TcellState::TH17]; //Rule 10 when Th17 is in contact
