@@ -192,28 +192,25 @@ void MacrophageGroup::act(const repast::Point<int> & pt)
 					  HPylori.pop_back();
 				}*/		  
 		   }
-		  if (p_Monocap > monosConcentration * repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()
+		  if (p_Monocap > monosConcentration
 				  && p_monorep > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		  {
 			  mpCompartment->getLocation(pAgent->getId(), Location);
 			  mpCompartment->addAgent(new Agent(Agent::Macrophage, pAgent->getState()), Location);
-			  continue;
 		  } // Proliferation of monocytes
 		  if (p_Monocytedeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		  {		 
 			  mpCompartment->removeAgent(pAgent);
-			  continue;
 		  } //Death of monocytes
 	  }//End of monocyte conditions
 	  if (state == MacrophageState::REGULATORY)
 	  {	
 		  if ((damagedEpithelialCellConcentration > ENISI::Threshold) 
 		      && p_monorep > repast::Random::instance()-> createUniDoubleGenerator(0.0, 1.0).next()
-		      && p_Monocap > monosConcentration * repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
+		      && p_Monocap > monosConcentration)
 		  {
 				mpCompartment->getLocation(pAgent->getId(), Location);
 				mpCompartment->addAgent(new Agent(Agent::Macrophage, MacrophageState::MONOCYTE), Location);
-			        continue;
 	          } //Monocytes proliferate, that can then change to Regulatory or inflammatory in next TICK
 		  if (p_Mregcyto > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		  {
@@ -222,9 +219,7 @@ void MacrophageGroup::act(const repast::Point<int> & pt)
 		  }
 		  if (p_Monocytedeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		  {
-			  //LocalFile::debug() << "*** Macrophage_Regulatory dies naturally" << std::endl;
 			  mpCompartment->removeAgent(pAgent);
-			  continue;
 		  }		 
 	  } //End of Mreg conditions
 	  if (state == MacrophageState::INFLAMMATORY)
@@ -235,16 +230,14 @@ void MacrophageGroup::act(const repast::Point<int> & pt)
 		  }		 
 		  if ((damagedEpithelialCellConcentration > ENISI::Threshold || macrophageinfConcentration > ENISI::Threshold) 
 		      && p_monorep > repast::Random::instance()-> createUniDoubleGenerator(0.0, 1.0).next() 
-		      && p_Monocap > monosConcentration * repast::Random::instance()-> createUniDoubleGenerator(0.0, 1.0).next())
+		      && p_Monocap > monosConcentration)
 		  {
 			  mpCompartment->getLocation(pAgent->getId(), Location);
 			  mpCompartment->addAgent(new Agent(Agent::Macrophage, MacrophageState::MONOCYTE), Location);
-			  continue;
 		  }		  		
 	           if (p_Monocytedeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		  {
 			  mpCompartment->removeAgent(pAgent);
-			  continue;
 		  }
 	  }  
 	  if (state == MacrophageState::RESIDENT) //resident macrophages that contribute towards HP proliferation
@@ -252,10 +245,8 @@ void MacrophageGroup::act(const repast::Point<int> & pt)
 		       if ((liveHPyloriConcentration > ENISI::Threshold) || 
 			    (infectiousBacteriaConcentration > ENISI::Threshold)
 				  && (p_resmacrep / (1 + resmacConcentration) > repast::Random::instance()-> createUniDoubleGenerator(0.0, 1.0).next())
-				  && (p_resmacCap>  resmacConcentration * repast::Random::instance()-> createUniDoubleGenerator(0.0, 1.0).next()))
-		        {
-			  
-			  LocalFile::debug() << "Resident macrophage proliferates" << std::endl;
+				  && (p_resmacCap>  resmacConcentration))
+		        {			  
 			  mpCompartment->getLocation(pAgent->getId(), Location);
 			  mpCompartment->addAgent(new Agent(Agent::Macrophage, pAgent->getState()), Location);			
 		        }
@@ -266,23 +257,20 @@ void MacrophageGroup::act(const repast::Point<int> & pt)
 			}
 			if ((resmacConcentration > ENISI::Threshold)
 					&& p_resmacrep / (1 + resmacConcentration) > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()
-			   		&& p_resmacCap > (resmacConcentration * repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()))
+			   		&& p_resmacCap > resmacConcentration)
 			{
 				mpCompartment->getLocation(pAgent->getId(), Location);
 				mpCompartment->addAgent(new Agent(Agent::Macrophage, pAgent->getState()), Location);
-				continue;
 			}
 		  
 			if (p_resmacdeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 			{
 				mpCompartment->removeAgent(pAgent);
-				continue;
 			}
 		         if ((th1Concentration > ENISI::Threshold || IFNg > ENISI::Threshold)
 					&& (p_trmackill > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()))
 		  	{
 				mpCompartment->removeAgent(pAgent);
-				continue;
 		  	}		       
 	        }
   }//END of for
