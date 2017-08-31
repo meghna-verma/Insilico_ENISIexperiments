@@ -28,7 +28,6 @@ private:
   double p_iDCtoeDCE;
   double p_iDCtotDCE;
   double p_DCDeath;
-  double p_iDCrep;
   double p_eDCcyto;
   double p_tDCcyto;
   double p_iDCmoveLPtoEpi;
