@@ -106,7 +106,7 @@ void BacteriaGroup::act(const repast::Point<int> & pt)
             continue;
         }
 	if((p_BacteriaLumProl / (1 + tolerogenicBacteriaConcentraion)) > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()
-	  && )
+	  && p_BacCap > totalbact)
 	{    	 
     	  mpCompartment->getLocation(pAgent->getId(), Location);
           mpCompartment->addAgent(new Agent(Agent::Bacteria, pAgent->getState()), Location);
