@@ -24,7 +24,6 @@ DendriticsGroup::DendriticsGroup(Compartment * pCompartment, const double & conc
   pModel->getValue("p_iDCtoeDCE", p_iDCtoeDCE);
   pModel->getValue("p_iDCtotDCE", p_iDCtotDCE);
   pModel->getValue("p_DCDeath", p_DCDeath);
-  pModel->getValue("p_iDCrep", p_iDCrep);
   pModel->getValue("p_eDCcyto", p_eDCcyto);
   pModel->getValue("p_tDCcyto", p_tDCcyto);	  
   pModel->getValue("p_iDCmoveLPtoEpi", p_iDCmoveLPtoEpi);
@@ -145,14 +144,8 @@ void DendriticsGroup::act(const repast::Point<int> & pt)
             {
               newState = DendriticState::EFFECTOR;
 	      pAgent->setState(newState);
-              continue;
-             // LocalFile::debug() << "DCS turn into effectors" << std::endl;
-              /*std::vector< double > Location;
-              mpCompartment->getLocation(pAgent->getId(), Location);
-              Location[Borders::Y] += 1.01 * mpCompartment->spaceBorders()->distanceFromBorder(Location, Borders::Y, Borders::HIGH);
-              //Location[Borders::Y] += 1.01 * mpCompartment->spaceBorders()->distanceFromBorder(Location, Borders::Y, Borders::LOW);
-              mpCompartment->moveTo(pAgent->getId(), Location);*/              
-          }//movement of eDCs from epithilium to lamina propria
+              continue;           
+             }//movement of eDCs from epithilium to lamina propria
           /* if less HPylori surrounds DC than bacteria and DC is in epithelium then becomes tolerogenic --
            * 0.5 is arbitrary */
           if (mpCompartment->getType() == Compartment::epithilium
@@ -161,11 +154,7 @@ void DendriticsGroup::act(const repast::Point<int> & pt)
           {
               newState = DendriticState::TOLEROGENIC;
 	      pAgent->setState(newState);
-              continue;
-              /*std::vector< double > Location;
-              mpCompartment->getLocation(pAgent->getId(), Location);
-              Location[Borders::Y] += 1.01 * mpCompartment->spaceBorders()->distanceFromBorder(Location, Borders::Y, Borders::HIGH);
-              mpCompartment->moveTo(pAgent->getId(), Location);*/              
+              continue;            
           }
           /*if sufficient Hpylori and bacteria surround DC and DC is in lamina propria then becomes effector --
            *  1 is arbitrary, Rule 48 */
@@ -195,13 +184,12 @@ void DendriticsGroup::act(const repast::Point<int> & pt)
 	    {
 	      mpCompartment->getLocation(pAgent->getId(), Location);
 	      mpCompartment->addAgent(new Agent(Agent::Dentritics, pAgent->getState()), Location);
-	      continue;
 	    }
 	  if ((p_DCDeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()))
 	    {
 		mpCompartment->removeAgent(pAgent);
 		continue;
-	    } 
+	    }
         }
       if (state == DendriticState::EFFECTOR)
         {
