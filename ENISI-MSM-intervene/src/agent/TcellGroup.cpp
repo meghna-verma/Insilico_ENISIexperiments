@@ -195,7 +195,7 @@ for (; it != end; ++it)
                   } */
               }// End of naive eDC loop 
             else if ((tDCConcentration > ENISI::Threshold)
-                || (TGFb > p_TGFb) || (p_nTtoiTreg > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()))
+                || (TGFb > p_TGFb) && (p_nTtoiTreg > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()))
               {
                 newState = TcellState::iTREG; /*Rule 53*/
                 pAgent->setState(newState);
@@ -214,7 +214,7 @@ for (; it != end; ++it)
         		newState = TcellState::iTREG; /*Rule 36*/
         		pAgent->setState(newState);
         	}
-        	if ((IL21 > p_IL21) || p_Th17cyto > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
+        	if ((IL21 > p_IL21) && p_Th17cyto > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		{
 			mpCompartment->cytokineValue("eIL17", pt) += 7;
 		}
@@ -272,7 +272,7 @@ for (; it != end; ++it)
             		mpCompartment->moveTo(pAgent->getId(), Location);
             		continue;
           	}
-		if ((IL21 > p_IL21) || p_Th1cyto > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
+		if ((IL21 > p_IL21) && p_Th1cyto > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 		{
 			mpCompartment->cytokineValue("eIFNg", pt) += 5;
 		}
