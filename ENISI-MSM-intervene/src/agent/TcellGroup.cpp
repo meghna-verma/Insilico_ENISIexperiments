@@ -170,9 +170,6 @@ for (; it != end; ++it)
           {
             if (eDCConcentration  > ENISI::Threshold)
               {
-		LocalFile::debug() << "TH1 cap" << p_TH1cap << std::endl;   
-		LocalFile::debug() << "Th1 concentration" << th1Concentration << std::endl;   
-				 
                 if (((dIFNg > p_IFNg) || (IL12 > p_IL12) ||
 		    (p_nTtoTh1 > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())))
                   {
