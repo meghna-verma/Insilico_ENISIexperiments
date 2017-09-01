@@ -105,10 +105,10 @@ void EpithelialCellGroup::act(const repast::Point<int> & pt)
               mpCompartment->cytokineValue("eIL12", pt, 0, yOffset) += 7;
 	    }
 	    if (p_randomdam > Random)
- -	    {
- -	      newState = EpithelialCellState::DAMAGED; //Random damage of epithelial cells
- -	      pAgent->setState(newState);
- -	    }
+	    {
+ 	      newState = EpithelialCellState::DAMAGED; //Random damage of epithelial cells
+ 	      pAgent->setState(newState);
+ 	    }
       	   if (p_EpiCellDeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
             {
               mpCompartment->removeAgent(pAgent); /*Rule 11*/
