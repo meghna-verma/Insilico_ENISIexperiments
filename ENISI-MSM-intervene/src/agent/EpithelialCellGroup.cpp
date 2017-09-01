@@ -26,6 +26,7 @@ EpithelialCellGroup::EpithelialCellGroup(Compartment * pCompartment, const doubl
   pModel->getValue("p_epith1damage", p_epith1damage);
   pModel->getValue("p_epicyto", p_epicyto);
   pModel->getValue("p_EpiCap", p_EpiCap);
+  pModel->getValue("p_randomdam", p_randomdam);
 }
 
 void EpithelialCellGroup::act(const repast::Point<int> & pt)
@@ -103,6 +104,11 @@ void EpithelialCellGroup::act(const repast::Point<int> & pt)
               mpCompartment->cytokineValue("eIL6", pt, 0, yOffset) += 7;
               mpCompartment->cytokineValue("eIL12", pt, 0, yOffset) += 7;
 	    }
+	    if (p_randomdam > Random)
+ -	    {
+ -	      newState = EpithelialCellState::DAMAGED; //Random damage of epithelial cells
+ -	      pAgent->setState(newState);
+ -	    }
       	   if (p_EpiCellDeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
             {
               mpCompartment->removeAgent(pAgent); /*Rule 11*/
