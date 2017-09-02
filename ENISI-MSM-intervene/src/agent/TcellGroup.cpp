@@ -32,6 +32,7 @@ TcellGroup::TcellGroup(Compartment * pCompartment, const double & NaiveTConcentr
   pModel->getValue("p_nTtoiTreg", p_nTtoiTreg);
   pModel->getValue("p_nTtoTh17",p_nTtoTh17);
   pModel->getValue("p_nTtoTh1", p_nTtoTh1);
+  pModel->getValue("p_tcellmove", p_tcellmove);
   pModel->getValue("p_rule31a",p_rule31a); 
   pModel->getValue("p_Th17toiTreg", p_Th17toiTreg); 
   pModel->getValue("p_iTregtoTh17", p_iTregtoTh17);
@@ -203,7 +204,6 @@ for (; it != end; ++it)
             if (p_naiveTcelldeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
             {
             	mpCompartment->removeAgent(pAgent); /*Rule naiveTcelldeath*- Naive T cell can die in LP*/
-            	continue;
             }
           }//End of naive T cell loop
         if (state == TcellState::TH17)
@@ -221,7 +221,6 @@ for (; it != end; ++it)
 		if (p_Th17death > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
         	{
         		mpCompartment->removeAgent(pAgent); /*Rule 24*- TH17 can die in GLN*/
-        		continue;
         	}
         	if (mpCompartment->gridBorders()->distanceFromBorder(pt.coords(), Borders::Y, Borders::LOW) < 0.5           
                            && (p_tcellmove > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next()))/*Rule 32*/
@@ -257,8 +256,7 @@ for (; it != end; ++it)
           	}
 		if (p_iTregdeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
 	      	{
-			mpCompartment->removeAgent(pAgent); /*Rule 26*- iTREG can die in GLN*/
-	        	continue;		
+			mpCompartment->removeAgent(pAgent); /*Rule 26*- iTREG can die in GLN*/		
 	       	}
 	}     
         if (state == TcellState::TH1)
@@ -279,7 +277,6 @@ for (; it != end; ++it)
 		if (p_Th1death > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
         	{
         		mpCompartment->removeAgent(pAgent); /*Rule 27*- Th1 can die in LP*/
-        		continue;
         	}
         }	
       }// end of the Compartment Type = Compartment::GLN
@@ -308,7 +305,6 @@ for (; it != end; ++it)
             if (p_naiveTcelldeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
             {
             	mpCompartment->removeAgent(pAgent); /*Rule naiveTcelldeath*- Naive T cell can die in LP*/
-            	continue;
             }	    
           }
         if (state == TcellState::iTREG)
@@ -335,7 +331,6 @@ for (; it != end; ++it)
 	    if (p_iTregdeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
               {
                 mpCompartment->removeAgent(pAgent); 
-                continue;
               }		
 	}
         if (state == TcellState::TH17)
@@ -403,7 +398,6 @@ for (; it != end; ++it)
 	    if (p_Trdeath > repast::Random::instance()->createUniDoubleGenerator(0.0, 1.0).next())
               {
         	mpCompartment->removeAgent(pAgent); 
-        	continue;
               }			
         }       
       }//END of LP  
