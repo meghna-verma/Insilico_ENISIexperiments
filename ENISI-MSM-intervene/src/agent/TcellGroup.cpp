@@ -109,10 +109,10 @@ void TcellGroup::act(const repast::Point<int> & pt)
 	double dIL17 = odeModel.getConcentration("dIL17");
 	double dIL10 = odeModel.getConcentration("dIL10");
 
-  LocalFile::debug() << "dIFNg = " << dIFNg << std::endl;
+  /*LocalFile::debug() << "dIFNg = " << dIFNg << std::endl;
   LocalFile::debug() << "dIL17 = " << dIL17 << std::endl;
   LocalFile::debug() << "dIL10 = " << dIL10 << std::endl;
-
+*/
 	double macrophageregConcentration = MacrophageConcentration[MacrophageState::REGULATORY];
 	double naiveTConcentration = TcellConcentration[TcellState::NAIVE];
 	double th17Concentration = TcellConcentration[TcellState::TH17]; //Rules 22, 23, 36-39 when Th17 is in contact
