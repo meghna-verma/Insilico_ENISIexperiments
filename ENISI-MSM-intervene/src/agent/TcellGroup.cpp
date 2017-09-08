@@ -108,13 +108,8 @@ void TcellGroup::act(const repast::Point<int> & pt)
 	double dIFNg = odeModel.getConcentration("dIFNg");
 	double dIL17 = odeModel.getConcentration("dIL17");
 	double dIL10 = odeModel.getConcentration("dIL10");
-<<<<<<< HEAD
-       
- /* LocalFile::debug() << "dIFNg = " << dIFNg << std::endl;
-=======
 
   /*LocalFile::debug() << "dIFNg = " << dIFNg << std::endl;
->>>>>>> e8c9d815a1862d316fe3991cbd85b2068ad435cd
   LocalFile::debug() << "dIL17 = " << dIL17 << std::endl;
   LocalFile::debug() << "dIL10 = " << dIL10 << std::endl;
 */
