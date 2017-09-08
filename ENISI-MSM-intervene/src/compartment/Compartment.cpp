@@ -319,8 +319,14 @@ Compartment * Compartment::transform(std::vector< double > & location) const
     {
       // It is possible that we are still outside the boundaries and need another transformation
       // This recursive call will take care of this
+	  LocalFile::debug() << "Recursive transform attempt: " << pTarget->getName() << std::endl;
       pTarget = pTarget->transform(location);
     }
+
+  if (pTarget != NULL)
+  	{
+	  LocalFile::debug() << "Recursive transform result:  " << pTarget->getName() << std::endl;
+  	}
 
   return pTarget;
 }
@@ -342,12 +348,17 @@ Compartment * Compartment::transform(std::vector< int > & location) const
 
   if (pTarget != NULL)
     {
-      location = pTarget->spaceToGrid(Space);
-
       // It is possible that we are still outside the boundaries and need another transformation
       // This recursive call will take care of this
-      pTarget = pTarget->transform(location);
+	  LocalFile::debug() << "Recursive transform attempt: " << pTarget->getName() << std::endl;
+	  pTarget = pTarget->transform(Space);
     }
+
+  if (pTarget != NULL)
+  	{
+	  LocalFile::debug() << "Recursive transform result:  " << pTarget->getName() << std::endl;
+      location = pTarget->spaceToGrid(Space);
+  	}
 
   return pTarget;
 }
@@ -429,32 +440,25 @@ bool Compartment::moveRandom(const repast::AgentId &id, const double & maxSpeed)
           switch (*itState)
             {
               case Borders::OUT_LOW:
-                //tmp = fmod(mSpaceDimensions.origin(i) - *itLocation, 2.0 * mSpaceDimensions.extents(i));
+                tmp = fmod(mSpaceDimensions.origin(i) - *itLocation, 2.0 * mSpaceDimensions.extents(i));
 
-                //if (tmp < mSpaceDimensions.extents(i))
-                  //*itLocation = mSpaceDimensions.origin(i) + tmp;
-                //else
-                 // *itLocation = mSpaceDimensions.origin(i) - mpSpaceBorders->distanceFromBorder(Location, (Borders::Coodinate) i, Borders::LOW);
-               tmp = fmod(mSpaceDimensions.origin(i) - *itLocation, 2.0 * mSpaceDimensions.extents(i));
- 
-                 if (tmp < mSpaceDimensions.extents(i))
-                   *itLocation = mSpaceDimensions.origin(i) + tmp;
-                 else
-                   *itLocation = mSpaceDimensions.origin(i) + 2.0 * mSpaceDimensions.extents(i) - tmp;
- 
+                if (tmp < mSpaceDimensions.extents(i))
+                  *itLocation = mSpaceDimensions.origin(i) + tmp;
+                else
+                  *itLocation = mSpaceDimensions.origin(i) + 2.0 * mSpaceDimensions.extents(i) - tmp;
+
                 break;
 
               case Borders::OUT_HIGH:
                 tmp = fmod(*itLocation - mSpaceDimensions.origin(i) - mSpaceDimensions.extents(i), 2.0 * mSpaceDimensions.extents(i));
 
                 if (tmp < mSpaceDimensions.extents(i))
-
                   *itLocation = mSpaceDimensions.origin(i) + mSpaceDimensions.extents(i) - tmp;
                 else
                   *itLocation = mSpaceDimensions.origin(i) + tmp - mSpaceDimensions.extents(i);
-             //*itLocation = mSpaceDimensions.origin(i) + mSpaceDimensions.extents(i) - mpSpaceBorders->distanceFromBorder(Location, (Borders::Coodinate) i, Borders::HIGH);
-              break;
-     
+
+                break;
+
               case Borders::INBOUND:
               case Borders::OUT_BOTH:
                 break;
@@ -1186,25 +1190,6 @@ void Compartment::act()
 
   synchronizeCells();
 }
-
-void Compartment::intervene()
-{
-  std::vector< GroupInterface * >::iterator it = mGroups.begin();
-  std::vector< GroupInterface * >::iterator end = mGroups.end();
-
-  for (; it != end; ++it)
-    {
-      (*it)->intervene();
-    }
-
-  for (it = mGroups.begin(); it != end; ++it)
-    {
-      (*it)->move();
-    }
-
-  synchronizeCells();
-}
-
 
 void Compartment::diffuse()
 {
