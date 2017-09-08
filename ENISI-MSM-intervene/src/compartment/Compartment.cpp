@@ -429,25 +429,32 @@ bool Compartment::moveRandom(const repast::AgentId &id, const double & maxSpeed)
           switch (*itState)
             {
               case Borders::OUT_LOW:
-                tmp = fmod(mSpaceDimensions.origin(i) - *itLocation, 2.0 * mSpaceDimensions.extents(i));
+                //tmp = fmod(mSpaceDimensions.origin(i) - *itLocation, 2.0 * mSpaceDimensions.extents(i));
 
-                if (tmp < mSpaceDimensions.extents(i))
-                  *itLocation = mSpaceDimensions.origin(i) + tmp;
-                else
-                  *itLocation = mSpaceDimensions.origin(i) + 2.0 * mSpaceDimensions.extents(i) - tmp;
-
+                //if (tmp < mSpaceDimensions.extents(i))
+                  //*itLocation = mSpaceDimensions.origin(i) + tmp;
+                //else
+                 // *itLocation = mSpaceDimensions.origin(i) - mpSpaceBorders->distanceFromBorder(Location, (Borders::Coodinate) i, Borders::LOW);
+               tmp = fmod(mSpaceDimensions.origin(i) - *itLocation, 2.0 * mSpaceDimensions.extents(i));
+ 
+                 if (tmp < mSpaceDimensions.extents(i))
+                   *itLocation = mSpaceDimensions.origin(i) + tmp;
+                 else
+                   *itLocation = mSpaceDimensions.origin(i) + 2.0 * mSpaceDimensions.extents(i) - tmp;
+ 
                 break;
 
               case Borders::OUT_HIGH:
                 tmp = fmod(*itLocation - mSpaceDimensions.origin(i) - mSpaceDimensions.extents(i), 2.0 * mSpaceDimensions.extents(i));
 
                 if (tmp < mSpaceDimensions.extents(i))
+
                   *itLocation = mSpaceDimensions.origin(i) + mSpaceDimensions.extents(i) - tmp;
                 else
                   *itLocation = mSpaceDimensions.origin(i) + tmp - mSpaceDimensions.extents(i);
-
-                break;
-
+             //*itLocation = mSpaceDimensions.origin(i) + mSpaceDimensions.extents(i) - mpSpaceBorders->distanceFromBorder(Location, (Borders::Coodinate) i, Borders::HIGH);
+              break;
+     
               case Borders::INBOUND:
               case Borders::OUT_BOTH:
                 break;
